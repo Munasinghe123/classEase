@@ -1,0 +1,85 @@
+/* Style for the container */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+    font-family: Arial, sans-serif;
+}
+
+/* Header styling */
+.login-header {
+    color: #0056b3;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Form styling */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 300px;
+    padding: 2rem;
+    /* Add padding inside the form */
+    border: 2px solid #0056b3;
+    /* Add a blue border */
+    border-radius: 8px;
+    /* Round the corners of the border */
+    background-color: #ffffff;
+    /* Optional: Add a white background for contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Optional: Add a subtle shadow for depth */
+}
+
+/* Input fields */
+.login-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #0056b3;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #0056b3;
+}
+
+/* Input focus effect */
+.login-input:focus {
+    outline: none;
+    border-color: #003f7f;
+    box-shadow: 0 0 4px rgba(0, 86, 179, 0.5);
+}
+
+/* Button styling */
+.login-button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.login-button:hover {
+    background-color: #003f7f;
+}
+
+/* Link to Home */
+.home-link {
+    margin-top: 1rem;
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Link hover effect */
+.home-link:hover {
+    text-decoration: underline;
+    color: #003f7f;
+}

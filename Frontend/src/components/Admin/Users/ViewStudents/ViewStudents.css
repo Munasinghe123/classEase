@@ -1,0 +1,145 @@
+.students-container {
+    padding: 20px;
+    text-align: center;
+    height: 100vh;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.student-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 15px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.student-card:hover {
+    transform: scale(1.02);
+}
+
+.student-card h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.student-card p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.card-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.update-btn,
+.delete-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    height: auto;
+    width: auto;
+}
+
+.update-btn {
+    background-color: #4caf50;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.update-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn:hover {
+    background-color: #e53935;
+}
+
+/* Styling for the "Generate Report" and "Download PDF" buttons */
+.download-pdf-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: #2196f3;
+    /* Blue for download */
+    color: white;
+}
+
+
+
+.download-pdf-btn:hover {
+    background-color: #1976d2;
+    /* Darker blue on hover */
+    transform: scale(1.05);
+    /* Slight scale effect */
+}
+
+/* .download-pdf-btn {
+    margin-right: 10px;
+} */
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.student-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.student-photo {
+    width: 100%;
+    /* Make image fit within the card */
+    height: auto;
+    /* Maintain aspect ratio */
+    max-height: 200px;
+    /* Limit the height */
+    object-fit: cover;
+    /* Ensures the image covers the area of the element */
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+

@@ -1,0 +1,16 @@
+.home-container {
+    height: 100vh;
+    background-image: url('lec.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    /* To position header on top */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-content {
+    z-index: 2;
+    /* This ensures the content is above the background */
+}
