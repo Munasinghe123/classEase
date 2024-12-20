@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
-
 import { jwtDecode } from 'jwt-decode';
 import './Login.css';
 import axios from 'axios';
+
+import galaxyVideo from './galaxy.mp4';
+
 
 const Login = () => {
     const [name, setName] = useState('');
@@ -41,6 +43,13 @@ const Login = () => {
 
     return (
         <div className="login-container">
+
+            <div className="video-background">
+                <video autoPlay loop muted>
+                    <source src={galaxyVideo} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
 
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2 className='login-header' >Login</h2>
