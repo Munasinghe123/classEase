@@ -94,24 +94,44 @@ const getUserById = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const id = req.params.id;
-    const { name } = req.body;
+    const { name, email } = req.body;
+    const photo = req.file; // File uploaded via multer
 
     try {
-        // Await the promise returned by findByIdAndUpdate
-        const updatedUser = await model.findByIdAndUpdate(id, { name }, { new: true });
+        // Find the user by ID
+        const user = await model.findById(id);
 
-        // Check if user was found and updated
-        if (!updatedUser) {
+        if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+
+        // Update the user fields
+        user.name = name || user.name;
+        user.email = email || user.email;
+
+        if (photo) {
+            // If a new photo is uploaded, delete the old one (if exists)
+            if (user.photo) {
+                const oldPhotoPath = path.join(__dirname, '../uploads/', user.photo);
+                if (fs.existsSync(oldPhotoPath)) {
+                    fs.unlinkSync(oldPhotoPath);
+                }
+            }
+
+            // Save the new photo filename
+            user.photo = photo.filename;
+        }
+
+        // Save the updated user
+        const updatedUser = await user.save();
 
         // Respond with the updated user data
         res.status(200).json({ user: updatedUser });
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ message: "Failed to update user" });
+        res.status(500).json({ message: "Failed to update user" });
     }
-}
+};
 
 
 module.exports = {

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,7 @@ import 'jspdf-autotable';
 
 function ViewStudents() {
     const [user, setUser] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(''); // State to store the search term
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -48,7 +50,10 @@ function ViewStudents() {
 
     const students = user.filter((u) => u.role === 'student');
 
-    console.log(students);
+    // Filter students based on the search term
+    const filteredStudents = students.filter((student) =>
+        student.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     // Function to download the report as a PDF
     const downloadPDF = () => {
@@ -57,7 +62,7 @@ function ViewStudents() {
         doc.autoTable({
             startY: 30,
             head: [['Name', 'Email']],
-            body: students.map((student) => [
+            body: filteredStudents.map((student) => [
                 student.name,
                 student.email,
             ]),
@@ -67,27 +72,34 @@ function ViewStudents() {
 
     return (
         <div className='students-container'>
-            <h1>Registered Students</h1>
+            <h1 className='students-topic'>Registered Students</h1>
+
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Search by name..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)} // Update the search term on input change
+                    className="search-input"
+                />
+            </div>
 
             <button onClick={downloadPDF} className='download-pdf-btn'>
                 Download PDF
             </button>
 
             <div className='card-container'>
-                {students.length > 0 ? (
-                    students.map((student) => (
+                {filteredStudents.length > 0 ? (
+                    filteredStudents.map((student) => (
+
                         <div className='student-card' key={student._id}>
-                            {/* Display the image if it exists */}
-                            {student.photo && (
-                                <img
-                                    src={`http://localhost:7001/uploads/${student.photo}`}
-                                    alt={student.name}
-                                    className="student-photo"
-                                />
-                            )}
+                            <img
+                                src={`http://localhost:7001/uploads/${student.photo}`}
+                                alt={student.name}
+                                className="student-photo"
+                            />
                             <h2>{student.name}</h2>
                             <p><strong>Email:</strong> {student.email}</p>
-
                             <div className='card-buttons'>
                                 <Link to={`/update/${student._id}`}>
                                     <button className='update-btn'>Update</button>
@@ -100,6 +112,7 @@ function ViewStudents() {
                                 </button>
                             </div>
                         </div>
+
                     ))
                 ) : (
                     <p>No students found</p>

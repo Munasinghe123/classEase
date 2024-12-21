@@ -8,6 +8,7 @@ function Update() {
     const [user, setUser] = useState(null);
     const [newName, setNewName] = useState("");
     const [newEmail, setEmail] = useState('');
+    const [newPhoto, setPhoto] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,17 +35,25 @@ function Update() {
 
     const handleNameChange = (e) => setNewName(e.target.value);
     const handleEmailChange = (e) => setEmail(e.target.value);
+    const handleFileChange = (e) => setPhoto(e.target.files[0]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            const updatedUser = { name: newName, email: newEmail };
+            const formData = new FormData();
+            formData.append('name', newName);
+            formData.append('email', newEmail);
+            if (newPhoto) formData.append('photo', newPhoto);
 
             const response = await axios.put(
                 `http://localhost:7001/api/users/updateUser/${id}`,
-                updatedUser,
-                { headers: { Authorization: `Bearer ${token}` } }
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
 
             if (response.status === 200) {
@@ -59,42 +68,33 @@ function Update() {
 
     if (!user) return <p>Loading user details...</p>;
 
-    const isStudent = user.role === 'student';
-
     return (
-        <div className='container'>
-            <div className='update-form'>
+        <div className="container">
+            <div className="update-form">
                 <h1>Update User Details</h1>
                 <form onSubmit={handleSubmit}>
-                    {isStudent ? (
-                        <>
-                            <label>Name</label>
-                            <input
-                                type='text'
-                                value={newName}
-                                onChange={handleNameChange}
-                                required
-                            />
-                            <label>Email</label>
-                            <input
-                                type='email'
-                                value={newEmail}
-                                onChange={handleEmailChange}
-                                required
-                            />
-                        </>
-                    ) : (
-                        <>
-                            <label>Name</label>
-                            <input
-                                type='text'
-                                value={newName}
-                                onChange={handleNameChange}
-                                required
-                            />
-                        </>
-                    )}
-                    <button type='submit'>Update</button>
+                    <label>Photo</label>
+                    <input
+                        type="file"
+                        onChange={handleFileChange}
+                        accept="image/*"
+                    />
+
+                    <label>Name</label>
+                    <input
+                        type="text"
+                        value={newName}
+                        onChange={handleNameChange}
+                    />
+
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        value={newEmail}
+                        onChange={handleEmailChange}
+                    />
+
+                    <button type="submit">Update</button>
                 </form>
             </div>
         </div>

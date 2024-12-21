@@ -52,48 +52,55 @@ function AddUsers() {
     };
 
     return (
-        <div className='add-user-container'>
+        <div className='add-user-container-addUsers'>
             <h1>Add Users</h1>
-            <form className='add-user-form' onSubmit={handleSubmit} encType="multipart/form-data">
-
-                <div className="form-group">
-                    <label htmlFor='userName'>User Name</label>
+            <form
+                className='add-user-form-addUsers'
+                onSubmit={handleSubmit}
+                encType="multipart/form-data"
+            >
+                <div className="form-group-addUsers">
+                    <label htmlFor='userName' className='addUsers-label'>User Name</label>
                     <input
                         type='text'
                         name='userName'
                         id='userName'
+                        className='addUsers-input'
                         required
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
 
-                <div className='form-group'>
-                    <label htmlFor='email'>Email</label>
+                <div className='form-group-addUsers'>
+                    <label htmlFor='email' className='addUsers-label'>Email</label>
                     <input
                         type='email'
                         name='userEmail'
                         id='userEmail'
+                        className='addUsers-input'
                         required
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor='password'>Password</label>
+                <div className="form-group-addUsers">
+                    <label htmlFor='password' className='addUsers-label'>Password</label>
                     <input
                         type='password'
                         name='password'
                         id='password'
+                        className='addUsers-input'
                         required
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor='role'>Role</label>
+                <div className="form-group-addUsers">
+                    <label htmlFor='role' className='addUsers-label'>Role</label>
                     <select
                         name="role"
                         id="role"
+                        className='addUsers-select'
                         required
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
@@ -106,19 +113,19 @@ function AddUsers() {
                     </select>
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor='photo'>Upload Photo</label>
+                <div className="form-group-addUsers">
+                    <label htmlFor='photo' className='addUsers-label'>Upload Photo</label>
                     <input
                         type='file'
                         name='photo'
                         id='photo'
+                        className='addUsers-input'
                         accept='image/*'
                         onChange={handleFileChange}
                     />
                 </div>
 
-                <button type='submit' className='submit-button'>Add User</button>
-
+                <button type='submit' className='submit-button-addUsers'>Add User</button>
             </form>
         </div>
     );

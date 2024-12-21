@@ -1,8 +1,8 @@
-.add-user-container {
+.add-user-container-addUsers {
     height: 100vh;
 }
 
-.add-user-form {
+.add-user-form-addUsers {
     display: flex;
     flex-direction: column;
     max-width: 400px;
@@ -15,12 +15,12 @@
     margin-top: 100px;
 }
 
-.form-group {
+.form-group-addUsers {
     margin-bottom: 20px;
     position: relative;
 }
 
-label {
+label.addUsers-label {
     display: block;
     margin-bottom: 8px;
     font-size: 14px;
@@ -29,8 +29,8 @@ label {
     transition: color 0.3s ease;
 }
 
-input,
-select {
+input.addUsers-input,
+select.addUsers-select {
     width: 350px;
     padding: 10px;
     font-size: 14px;
@@ -39,18 +39,17 @@ select {
     transition: border-color 0.3s ease;
 }
 
-input:focus,
-select:focus {
+input.addUsers-input:focus,
+select.addUsers-select:focus {
     border-color: #007bff;
     outline: none;
 }
 
-.form-group:focus-within label {
+.form-group-addUsers:focus-within label.addUsers-label {
     color: #007bff;
-    /* Changes label to blue when its associated input/select is focused */
 }
 
-button.submit-button {
+button.submit-button-addUsers {
     padding: 10px 15px;
     font-size: 16px;
     font-weight: bold;
@@ -62,6 +61,6 @@ button.submit-button {
     transition: background-color 0.3s ease;
 }
 
-button.submit-button:hover {
+button.submit-button-addUsers:hover {
     background-color: #0056b3;
 }

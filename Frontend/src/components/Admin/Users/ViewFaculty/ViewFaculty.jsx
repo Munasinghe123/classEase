@@ -9,6 +9,7 @@ import 'jspdf-autotable';
 
 function ViewFaculty() {
     const [users, setUsers] = useState([]);
+    const [searchItem, setSearchItem] = useState('');
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -30,6 +31,12 @@ function ViewFaculty() {
 
     // Filter users with role 'faculty'
     const facultyUsers = users.filter((user) => user.role === 'faculty');
+
+    //search logic
+
+    const filterdFaculty = facultyUsers.filter((faculty) =>
+        faculty.name.toLowerCase().includes(searchItem.toLowerCase())
+    );
 
     // Delete function
     const deleteMember = async (id) => {
@@ -58,7 +65,7 @@ function ViewFaculty() {
         doc.autoTable({
             startY: 30,
             head: [['Name', 'Email']],
-            body: facultyUsers.map((faculty) => [
+            body: filterdFaculty.map((faculty) => [
                 faculty.name,
                 faculty.email,
             ]),
@@ -66,20 +73,36 @@ function ViewFaculty() {
         doc.save("faculty-report.pdf");
     }
 
+
     return (
-        <div className="faculty-container">
-            <h1>Faculty Users</h1>
+        <div className="faculty-dashboard-container">
+            <h1 className='faculty-topic'>Faculty Users</h1>
+
+            <div className='search-container'>
+                <input type='text'
+                    className='facultySearch-input'
+                    value={searchItem}
+                    onChange={(e) => setSearchItem(e.target.value)}
+                    placeholder='search by name...'
+                />
+            </div>
 
             <div className='pdf-btn-container'>
                 <button onClick={downloadPdf} className='download-btn'>Download PDF</button>
             </div>
 
             <div className='card-container'>
-                {facultyUsers.length > 0 ? (
-                    facultyUsers.map((faculty, index) => {
+                {filterdFaculty.length > 0 ? (
+                    filterdFaculty.map((faculty, index) => {
                         return (
 
                             <div className='faculty-card' key={index}>
+                                <div className='image'>
+                                    <img src={`http://localhost:7001/uploads/${faculty.photo}`}
+                                        alt={faculty.name}
+                                    />
+                                </div>
+
                                 <h2>{faculty.name}</h2>
                                 <p><strong>Email :</strong>{faculty.email}</p>
 
