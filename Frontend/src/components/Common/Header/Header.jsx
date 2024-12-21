@@ -65,9 +65,10 @@ const Header = () => {
                     {user && user.role === 'admin' && (
                         <nav className="admin-nav">
                             <Link to="/admin" className="nav-link">Admin</Link>
-                            <Link to="/faculty" className="nav-link">Faculty</Link>
-                            <Link to="/student" className="nav-link">Student</Link>
+                            {/* <Link to="/faculty" className="nav-link">Faculty</Link>
+                            <Link to="/student" className="nav-link">Student</Link> */}
                             <Link to="/addUser" className="nav-link">Add User</Link>
+                            <Link to="/addCourses" className="nav-link">Add Courses</Link>
 
                             {/* Dropdown Menu */}
                             <div
