@@ -21,9 +21,9 @@ router.post(
 
 
 router.delete('/deleteMember/:id', verifyToken, authorizeRoles("admin"), deleteMember)
-// router.get('/getUserById/:id', verifyToken, authorizeRoles("admin"), getUserById)
-router.get('/getUserById/:id', verifyToken, authorizeRoles("admin"), getUserById);
-router.put('/updateUser/:id', verifyToken, authorizeRoles("admin"), updateUser);
+
+
+router.put('/updateUser/:id', verifyToken, authorizeRoles("admin"), upload.single('photo'), updateUser);
 
 //faculty only
 router.get('/faculty', verifyToken, authorizeRoles("admin", "faculty"), (req, res) => {
@@ -31,9 +31,12 @@ router.get('/faculty', verifyToken, authorizeRoles("admin", "faculty"), (req, re
 })
 
 //student only
-
 router.get('/student', verifyToken, authorizeRoles("admin", "student"), (req, res) => {
     res.json({ message: 'welcome user' });
 })
+
+
+//common
+router.get('/getUserById/:id', verifyToken, authorizeRoles("admin","faculty","student"), getUserById);
 
 module.exports = router;

@@ -39,7 +39,7 @@
 
 /* Hover effect for cards */
 .faculty-card:hover {
-    transform: scale(1.02);
+    transform: translateY(-5px);
     box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.2), -6px -6px 20px rgba(255, 255, 255, 0.8);
 }
 
