@@ -1,0 +1,85 @@
+/* General container styling */
+
+.main-container {
+    height: 100vh;
+    margin-top: 150px;
+
+}
+
+.AddCoursees-contsiner {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Heading styling */
+.AddCourses-topic {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.addCoursesForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.addCoursesForm input,
+.addCoursesForm select {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus effect for inputs and select */
+.addCoursesForm input:focus,
+.addCoursesForm select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Label focus styling */
+.addCoursesForm input:focus+label,
+.addCoursesForm select:focus+label {
+    color: #007bff;
+}
+
+/* Button styling */
+.AddCourse-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.AddCourse-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .AddCoursees-contsiner {
+        padding: 15px;
+    }
+}

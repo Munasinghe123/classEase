@@ -6,7 +6,8 @@ import axios from 'axios';
 
 const Header = () => {
     const { logout, user } = useContext(AuthContext);
-    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [usersdropdownVisible, setUsersDropdownVisible] = useState(false);
+    const [coursesdropdownVisible, setCoursesDropdownVisible] = useState(false);
     const [photo, setPhoto] = useState(null);
 
     useEffect(() => {
@@ -31,8 +32,14 @@ const Header = () => {
         fetchUserPhoto();
     }, [user]); // Runs whenever the 'user' changes
 
-    const toggleDropdown = (visible) => {
-        setDropdownVisible(visible);
+    //users' dropdown
+    const toggleUsersDropdown = (visible) => {
+        setUsersDropdownVisible(visible);
+    };
+
+    //courses dropdown
+    const toggleCoursesDropdown = (visible) => {
+        setCoursesDropdownVisible(visible);
     };
 
     return (
@@ -64,23 +71,37 @@ const Header = () => {
                     {/* Admin Links */}
                     {user && user.role === 'admin' && (
                         <nav className="admin-nav">
-                            <Link to="/admin" className="nav-link">Admin</Link>
-                            {/* <Link to="/faculty" className="nav-link">Faculty</Link>
-                            <Link to="/student" className="nav-link">Student</Link> */}
-                            <Link to="/addUser" className="nav-link">Add User</Link>
-                            <Link to="/addCourses" className="nav-link">Add Courses</Link>
+                            <Link to="/admin" className="nav-link">Admin Dashboard</Link>
 
-                            {/* Dropdown Menu */}
+
+                            {/*users' Dropdown Menu */}
                             <div
                                 className="dropdown"
-                                onMouseEnter={() => toggleDropdown(true)}
-                                onMouseLeave={() => toggleDropdown(false)}
+                                onMouseEnter={() => toggleUsersDropdown(true)}
+                                onMouseLeave={() => toggleUsersDropdown(false)}
                             >
-                                <span className="nav-link">View Users</span>
-                                {dropdownVisible && (
+
+                                <span className="nav-link">User Details</span>
+                                {usersdropdownVisible && (
                                     <div className="dropdown-menu">
+                                        <Link to="/addUser" className="dropdown-item">Add Users</Link>
                                         <Link to="/viewStudents" className="dropdown-item">View Students</Link>
                                         <Link to="/viewFaculty" className="dropdown-item">View Faculty Members</Link>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div
+                                className="dropdown"
+                                onMouseEnter={() => toggleCoursesDropdown(true)}
+                                onMouseLeave={() => toggleCoursesDropdown(false)}
+                            >
+
+                                <span className="nav-link">Course details</span>
+                                {coursesdropdownVisible && (
+                                    <div className="dropdown-menu">
+                                        <Link to="/addCourses" className="dropdown-item">Add courses</Link>
+                                        <Link to="/viewCourses" className="dropdown-item">View Course details</Link>
                                     </div>
                                 )}
                             </div>

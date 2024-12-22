@@ -13,7 +13,8 @@ import ViewFaculty from './components/Admin/Users/ViewFaculty/ViewFaculty'
 import ViewStudents from './components/Admin/Users/ViewStudents/ViewStudents'
 import Footer from './components/Common/Footer/Footer';
 import Update from './components/Admin/UpdateMember/Update';
-import AddCourses from './components/Admin/AddCourses/AddCourses';
+import AddCourses from './components/Admin/Courses/AddCourses/AddCourses';
+import ViewCourses from './components/Admin/Courses/ViewCourses/ViewCourses';
 
 
 import { AuthContext } from './context/AuthContext';
@@ -41,7 +42,8 @@ const App = () => {
                 <Route path="/viewStudents" element={<ViewStudents />} />
                 <Route path="/viewFaculty" element={<ViewFaculty />} />
                 <Route path="/update/:id" element={<Update />} />
-                <Route path="/addCourses" element={<AddCourses/>} />
+                <Route path="/addCourses" element={<AddCourses />} />
+                <Route path="/viewCourses" element={<ViewCourses />} />
               </>
             )}
 
