@@ -2,7 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const dbConnection = require('./Config/dbConnection');
 const authRoutes = require('./Routes/AuthRoutes');
-const userRoutes = require('./Routes/UserRoutes')
+const userRoutes = require('./Routes/UserRoutes');
+const courseRoutes = require('./Routes/CourseRoutes');
 const cors = require('cors');
 const path = require('path');
 
@@ -24,6 +25,7 @@ app.use(express.json());
 //routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes); //jwt protected routes
+app.use("/api/courses", courseRoutes);
 
 //port
 const PORT = process.env.PORT || 7002;
