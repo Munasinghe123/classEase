@@ -1,19 +1,14 @@
-/* ViewCourses.css */
-
 .ViewCourses-container {
     padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    font-family: Arial, sans-serif;
     height: 100vh;
-
+    margin-top: 150px;
 }
 
 .ViewCourses-Topic {
-    font-size: 2em;
     text-align: center;
+    font-size: 2rem;
     margin-bottom: 20px;
-    color: #333;
-    margin-top: 150px;
 }
 
 table {
@@ -24,42 +19,39 @@ table {
 
 th,
 td {
+    border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
-    border: 1px solid #ddd;
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: #f4f4f4;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
     color: white;
-    font-weight: bold;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-tr:hover {
-    background-color: #e9e9e9;
-}
-
-td {
+    cursor: pointer;
     font-size: 14px;
-    color: #333;
+    margin-right: 10px;
+    border-radius: 4px;
 }
 
-table th,
-table td {
-    border-radius: 5px;
+.course-update-button {
+    background-color: green;
+    transition: background-color 0.3s;
 }
 
-@media (max-width: 768px) {
-    table {
-        font-size: 14px;
-    }
+.course-update-button:hover {
+    background-color: darkgreen;
+}
 
-    th,
-    td {
-        padding: 8px;
-    }
+.course-delete-button {
+    background-color: red;
+    transition: background-color 0.3s;
+}
+
+.course-delete-button:hover {
+    background-color: darkred;
 }

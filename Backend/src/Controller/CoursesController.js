@@ -81,37 +81,31 @@ const getCourseById = async (req, res) => {
     }
 };
 
-// Update course details
+
 const updateCourse = async (req, res) => {
+    const { name, code, description, credits, assignedFaculty } = req.body;
+
     try {
-        const { name, code, description, credits, assignedFaculty } = req.body;
-
         const course = await Course.findById(req.params.id);
-        if (!course) {
-            return res.status(404).json({ message: "Course not found" });
-        }
+        if (!course) return res.status(404).json({ message: 'Course not found' });
 
-        // Update fields
         course.name = name || course.name;
         course.code = code || course.code;
         course.description = description || course.description;
         course.credits = credits || course.credits;
 
         if (assignedFaculty) {
-            const faculty = await User.findOne({ _id: assignedFaculty, role: 'faculty' });
-            if (!faculty) {
-                return res.status(400).json({ message: 'Invalid faculty ID or user is not a faculty' });
-            }
-            course.assignedFaculty = assignedFaculty;
+            course.assignedFaculty = assignedFaculty;  // This should be the ObjectId of the faculty
         }
 
-        const updatedCourse = await course.save();
-        res.status(200).json(updatedCourse);
+        await course.save();
+        res.status(200).json(course);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "Failed to update course" });
+        res.status(500).json({ message: 'Error updating course' });
     }
 };
+
 
 // Delete a course
 const deleteCourse = async (req, res) => {

@@ -78,7 +78,7 @@ const AdminDashboard = () => {
             </div>
 
             <div className="numbers">
-                <h1 className='Stats'>Stats</h1>
+                <h1 className='Stats'>User statistics</h1>
 
                 <p className='noOfUsers'>No of users: {userCount}</p>
 

@@ -8,12 +8,12 @@ import 'jspdf-autotable';
 
 function ViewStudents() {
     const [user, setUser] = useState([]);
-    const [searchTerm, setSearchTerm] = useState(''); // State to store the search term
+    const [searchTerm, setSearchTerm] = useState(''); 
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const token = localStorage.getItem('token'); // Get the token from localStorage
+                const token = localStorage.getItem('token'); 
                 const response = await axios.get('http://localhost:7001/api/users/getAllUsers', {
                     headers: {
                         Authorization: `Bearer ${token}`, // Attach the token to the request
