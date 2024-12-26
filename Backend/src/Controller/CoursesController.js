@@ -39,7 +39,6 @@ const createCourse = async (req, res) => {
     }
 };
 
-// Enroll a student in a course
 const enrollStudent = async (req, res) => {
     try {
         const { studentId } = req.body;
@@ -60,12 +59,17 @@ const enrollStudent = async (req, res) => {
             await course.save();
         }
 
-        res.status(200).json({ message: "Student enrolled successfully", course });
+        // Populate the enrolledStudents field to show the student name
+        const populatedCourse = await Course.findById(req.params.id)
+            .populate('enrolledStudent', 'name'); // Populate only the name field
+
+        res.status(200).json({ message: "Student enrolled successfully", course: populatedCourse });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Failed to enroll student" });
     }
 };
+
 
 // Get course by ID
 const getCourseById = async (req, res) => {

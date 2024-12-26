@@ -102,6 +102,7 @@ const Header = () => {
                                     <div className="dropdown-menu">
                                         <Link to="/addCourses" className="dropdown-item">Add courses</Link>
                                         <Link to="/viewCourses" className="dropdown-item">View Course details</Link>
+                                        <Link to="/EnrollStudents" className="dropdown-item">Enroll Students</Link>
                                     </div>
                                 )}
                             </div>
