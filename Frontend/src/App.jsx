@@ -16,6 +16,7 @@ import Update from './components/Admin/Users/UpdateMember/Update';
 import AddCourses from './components/Admin/Courses/AddCourses/AddCourses';
 import ViewCourses from './components/Admin/Courses/ViewCourses/ViewCourses';
 import UpdateCourses from './components/Admin/Courses/UpdateCourses/UpdateCourses';
+import EnrollStudents from './components/Admin/Courses/EnrollStudents/EnrollStudents';
 
 
 import { AuthContext } from './context/AuthContext';
@@ -46,6 +47,7 @@ const App = () => {
                 <Route path="/addCourses" element={<AddCourses />} />
                 <Route path="/viewCourses" element={<ViewCourses />} />
                 <Route path="/updateCourses/:id" element={<UpdateCourses />} />
+                <Route path="/EnrollStudents" element={<EnrollStudents />} />
               </>
             )}
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function ViewCourses() {
-    const [course, setCourse] = useState([]);
+    const [courses, setCourses] = useState([]);
 
     // Fetch courses data
     useEffect(() => {
@@ -17,14 +17,14 @@ function ViewCourses() {
                     },
                 });
                 console.log(response.data);
-                setCourse(response.data);
+                setCourses(response.data);
             } catch (err) {
                 console.log(err);
                 alert('Failed to get courses');
             }
         };
         fetchCourses();
-    }, [course]);
+    }, []);  // Only fetch once when the component mounts
 
     // Delete course function
     const handleDelete = async (id) => {
@@ -37,7 +37,7 @@ function ViewCourses() {
             });
 
             if (response.status === 200) {
-                setCourse(course.filter(c => c._id !== id));
+                setCourses(courses.filter(c => c._id !== id));
                 alert('Course deleted successfully!');
             }
         } catch (err) {
@@ -57,17 +57,30 @@ function ViewCourses() {
                         <th>Description</th>
                         <th>Credits</th>
                         <th>Assigned Faculty member</th>
+                        <th>Enrolled Students</th>
                         <th>Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {course.map((course, index) => (
-                        <tr key={index}>
+                    {courses.map((course) => (
+                        <tr key={course._id}>
                             <td>{course.name}</td>
                             <td>{course.code}</td>
                             <td>{course.description}</td>
                             <td>{course.credits}</td>
-                            <td>{course.assignedFaculty.name}</td>
+                            <td>{course.assignedFaculty.name }</td>
+                            <td>
+                                {/* Display enrolled students */}
+                                {course.enrolledStudent && course.enrolledStudent.length > 0 ? (
+                                    <ul>
+                                        {course.enrolledStudent.map((student) => (
+                                            <li key={student._id}>{student.name}</li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p>No students enrolled</p>
+                                )}
+                            </td>
                             <td>
                                 <Link to={`/updateCourses/${course._id}`}>
                                     <button className='course-update-button'>Update</button>
