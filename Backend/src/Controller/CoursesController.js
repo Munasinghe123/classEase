@@ -121,6 +121,22 @@ const deleteCourse = async (req, res) => {
     }
 };
 
+// Get courses assigned to a specific faculty
+const getCoursesByFaculty = async (req, res) => {
+    try {
+        const facultyId = req.params.facultyId;
+        const courses = await Course.find({ assignedFaculty: facultyId }).populate('assignedFaculty', 'name email');
+        if (!courses) {
+            return res.status(404).json({ message: "No courses found for this faculty" });
+        }
+        res.status(200).json(courses);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Failed to fetch courses" });
+    }
+};
+
+
 module.exports = {
     getAllCourses,
     createCourse,
@@ -128,4 +144,5 @@ module.exports = {
     getCourseById,
     updateCourse,
     deleteCourse,
+    getCoursesByFaculty
 };

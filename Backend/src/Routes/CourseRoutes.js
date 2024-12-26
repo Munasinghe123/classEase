@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllCourses, createCourse, getCourseById, updateCourse, deleteCourse } = require('../Controller/CoursesController');
+const { getAllCourses, createCourse, getCourseById, updateCourse, deleteCourse, getCoursesByFaculty } = require('../Controller/CoursesController');
 const verifyToken = require('../Middleware/AuthMiddleware');
 const authorizeRoles = require('../Middleware/RoleMiddleware');
 
@@ -11,5 +11,7 @@ router.post('/createCourses', verifyToken, authorizeRoles("admin", "faculty"), c
 router.get('/getCourseById/:id', verifyToken, authorizeRoles("admin", "faculty", "student"), getCourseById);
 router.put('/updateCourse/:id', verifyToken, authorizeRoles("admin", "faculty"), updateCourse);
 router.delete('/deleteCourse/:id', verifyToken, authorizeRoles("admin", "faculty"), deleteCourse);
+router.get('/getCoursesByFaculty/:facultyId', verifyToken, authorizeRoles("admin", "faculty"), getCoursesByFaculty);
+
 
 module.exports = router;
