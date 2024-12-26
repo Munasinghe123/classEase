@@ -6,22 +6,40 @@ import { AuthContext } from '../../context/AuthContext';
 function FacultyDashboard() {
     const { user } = useContext(AuthContext);
     const [photo, setPhoto] = useState(null);
+    const [courses, setCourses] = useState([]);  // For storing the courses assigned to the faculty
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchUserData = async () => {
             try {
                 const token = localStorage.getItem('token');
                 const response = await axios.get(`http://localhost:7001/api/users/getUserById/${user.id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
-                })
+                });
                 setPhoto(response.data.user.photo);
             } catch (err) {
                 console.log(err);
             }
-        }
-        fetchUsers();
+        };
+        fetchUserData();
+    }, [user.id]);
+
+    useEffect(() => {
+        const fetchAssignedCourses = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`http://localhost:7001/api/courses/getCoursesByFaculty/${user.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setCourses(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchAssignedCourses();
     }, [user.id]);
 
     return (
@@ -39,12 +57,25 @@ function FacultyDashboard() {
                     ) : (
                         <img src="/defaultAvatar.jpg" alt="Default Avatar" className="user-photo" />
                     )}
-                    <p className='faculty-name'>Name :{user.name}</p>
-                    <p className='faculty-email'>Email :{user.email}</p>
+                    <p className='faculty-name'>Name: {user.name}</p>
+                    <p className='faculty-email'>Email: {user.email}</p>
+
+                    <p className='assigned-courses'>Assigned Courses:</p>
+                    <ul>
+                        {courses.length > 0 ? (
+                            courses.map(course => (
+                                <li key={course._id}>
+                                    <strong>{course.name}</strong> ({course.code}) 
+                                </li>
+                            ))
+                        ) : (
+                            <li>No courses assigned</li>
+                        )}
+                    </ul>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default FacultyDashboard;
