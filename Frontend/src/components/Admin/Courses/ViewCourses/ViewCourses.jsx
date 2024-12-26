@@ -24,7 +24,7 @@ function ViewCourses() {
             }
         };
         fetchCourses();
-    }, []);  // Only fetch once when the component mounts
+    }, []);  //practice branch
 
     // Delete course function
     const handleDelete = async (id) => {
@@ -68,7 +68,7 @@ function ViewCourses() {
                             <td>{course.code}</td>
                             <td>{course.description}</td>
                             <td>{course.credits}</td>
-                            <td>{course.assignedFaculty.name }</td>
+                            <td>{course.assignedFaculty.name}</td>
                             <td>
                                 {/* Display enrolled students */}
                                 {course.enrolledStudent && course.enrolledStudent.length > 0 ? (
