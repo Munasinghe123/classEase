@@ -1,15 +1,14 @@
-import React from 'react'
-import './ViewCourses.css'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import './ViewCourses.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function ViewCourses() {
+    const [course, setCourse] = useState([]);
 
-    const [faculty, setFaculty] = useState([]);
-
+    // Fetch courses data
     useEffect(() => {
-
-        const fetchUsers = async () => {
+        const fetchCourses = async () => {
             try {
                 const token = localStorage.getItem('token');
                 const response = await axios.get('http://localhost:7001/api/courses/getAllCourses', {
@@ -18,15 +17,34 @@ function ViewCourses() {
                     },
                 });
                 console.log(response.data);
-                setFaculty(response.data)
-
+                setCourse(response.data);
             } catch (err) {
                 console.log(err);
-                alert('failed to get courses');
+                alert('Failed to get courses');
             }
         };
-        fetchUsers();
-    }, []);
+        fetchCourses();
+    }, [course]);
+
+    // Delete course function
+    const handleDelete = async (id) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.delete(`http://localhost:7001/api/courses/deleteCourse/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach the token to the request
+                },
+            });
+
+            if (response.status === 200) {
+                setCourse(course.filter(c => c._id !== id));
+                alert('Course deleted successfully!');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Failed to delete the course');
+        }
+    };
 
     return (
         <div className='ViewCourses-container'>
@@ -43,22 +61,30 @@ function ViewCourses() {
                     </tr>
                 </thead>
                 <tbody>
-                    {faculty.map((course, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{course.name}</td>
-                                <td>{course.code}</td>
-                                <td>{course.description}</td>
-                                <td>{course.credits}</td>
-                                <td>{course.assignedFaculty.name}</td>
-
-                            </tr>
-                        )
-                    })}
+                    {course.map((course, index) => (
+                        <tr key={index}>
+                            <td>{course.name}</td>
+                            <td>{course.code}</td>
+                            <td>{course.description}</td>
+                            <td>{course.credits}</td>
+                            <td>{course.assignedFaculty.name}</td>
+                            <td>
+                                <Link to={`/updateCourses/${course._id}`}>
+                                    <button className='course-update-button'>Update</button>
+                                </Link>
+                                <button
+                                    className='course-delete-button'
+                                    onClick={() => handleDelete(course._id)}
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
-        </div >
-    )
+        </div>
+    );
 }
 
-export default ViewCourses
+export default ViewCourses;

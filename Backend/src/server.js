@@ -1,36 +1,48 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
-const dbConnection = require('./Config/dbConnection');
+const cors = require('cors');
+const path = require('path');
+const mongoose = require('mongoose');
 const authRoutes = require('./Routes/AuthRoutes');
 const userRoutes = require('./Routes/UserRoutes');
 const courseRoutes = require('./Routes/CourseRoutes');
-const cors = require('cors');
-const path = require('path');
 
-console.log("Port:", process.env.PORT);  // Debugging
 
-//dbconnstion
+// Database connection function
+const dbConnection = async () => {
+    try {
+        await mongoose.connect(process.env.CONNECTION_STRING, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('Database connected');
+    } catch (err) {
+        console.error('Database connection failed:', err.message);
+        process.exit(1); // Exit process with failure
+    }
+};
+
+// Initialize database connection
 dbConnection();
 
 const app = express();
 
+// Serve static files for uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Enable CORS for all routes
 app.use(cors());
 
-//middle ware
+// Middleware for parsing JSON requests
 app.use(express.json());
 
-//routes
+// API routes
 app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes); //jwt protected routes
+app.use("/api/users", userRoutes); // JWT-protected routes
 app.use("/api/courses", courseRoutes);
 
-//port
+// Start the server
 const PORT = process.env.PORT || 7002;
 app.listen(PORT, () => {
-    console.log(`server is running at ${PORT}`);
-})
-
-//jaya RBAC
+    console.log(`Server is running at port ${PORT}`);
+});

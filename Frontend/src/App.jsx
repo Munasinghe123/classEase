@@ -7,14 +7,15 @@ import StudentDashboard from './components/Student/StudentDashboard';
 import Home from './components/Common/Home/Home';
 import NotFound from './components/NotFound/NotFound';
 import Header from './components/Common/Header/Header';
-import AddUsers from './components/Admin/AddUsers/AddUsers';
+import AddUsers from './components/Admin/Users/AddUsers/AddUsers';
 import ViewUsers from './components/Admin/Users/ViewUsers/ViewUsers'
 import ViewFaculty from './components/Admin/Users/ViewFaculty/ViewFaculty'
 import ViewStudents from './components/Admin/Users/ViewStudents/ViewStudents'
 import Footer from './components/Common/Footer/Footer';
-import Update from './components/Admin/UpdateMember/Update';
+import Update from './components/Admin/Users/UpdateMember/Update';
 import AddCourses from './components/Admin/Courses/AddCourses/AddCourses';
 import ViewCourses from './components/Admin/Courses/ViewCourses/ViewCourses';
+import UpdateCourses from './components/Admin/Courses/UpdateCourses/UpdateCourses';
 
 
 import { AuthContext } from './context/AuthContext';
@@ -44,6 +45,7 @@ const App = () => {
                 <Route path="/update/:id" element={<Update />} />
                 <Route path="/addCourses" element={<AddCourses />} />
                 <Route path="/viewCourses" element={<ViewCourses />} />
+                <Route path="/updateCourses/:id" element={<UpdateCourses />} />
               </>
             )}
 

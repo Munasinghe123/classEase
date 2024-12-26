@@ -1,8 +1,11 @@
 import { React, useEffect, useState } from 'react'
 import './AddCourses.css'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AddCourses() {
+
+    const navigate = useNavigate();
 
     const [faculty, setFaculty] = useState([]);
     const [name, setCourseName] = useState('');
@@ -55,6 +58,8 @@ function AddCourses() {
                 console.log('created course', response.data);
                 alert('Course added successfully');
                 e.target.reset();
+
+                navigate("/viewCourses")
             } else {
                 alert('Unable to add course');
             }
