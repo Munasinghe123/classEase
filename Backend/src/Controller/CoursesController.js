@@ -4,7 +4,8 @@ const User = require('../Model/UserModel');
 // Get all courses
 const getAllCourses = async (req, res) => {
     try {
-        const courses = await Course.find().populate('assignedFaculty', 'name email').populate('enrolledStudent', 'name email');
+        const courses = await Course.find().populate('assignedFaculty', 'name email')
+                                            .populate('enrolledStudent', 'name email');
         res.status(200).json(courses);
     } catch (err) {
         console.error(err);
@@ -150,7 +151,7 @@ const getCourseByStudent = async (req, res) => {
         if (!courses || courses.length === 0) {
             return res.status(404).json({ message: "No courses found for the student." });
         }
-        console.log("courses",courses);
+        console.log("courses", courses);
         res.status(200).json(courses);
     } catch (err) {
         console.log(err);

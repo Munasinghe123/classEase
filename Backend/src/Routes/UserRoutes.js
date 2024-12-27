@@ -37,6 +37,6 @@ router.get('/student', verifyToken, authorizeRoles("admin", "student"), (req, re
 
 
 //common
-router.get('/getUserById/:id', verifyToken, authorizeRoles("admin","faculty","student"), getUserById);
+router.get('/getUserById/:id', verifyToken, authorizeRoles("admin", "faculty", "student"), getUserById);
 
 module.exports = router;

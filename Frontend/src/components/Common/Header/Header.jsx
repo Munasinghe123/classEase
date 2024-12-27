@@ -8,6 +8,7 @@ const Header = () => {
     const { logout, user } = useContext(AuthContext);
     const [usersdropdownVisible, setUsersDropdownVisible] = useState(false);
     const [coursesdropdownVisible, setCoursesDropdownVisible] = useState(false);
+    const [timeTabledropDown, settimeTabledropDownVisible] = useState(false);
     const [photo, setPhoto] = useState(null);
 
     useEffect(() => {
@@ -41,6 +42,11 @@ const Header = () => {
     const toggleCoursesDropdown = (visible) => {
         setCoursesDropdownVisible(visible);
     };
+
+    //time tableDropDown
+    const toggleTimeTableDropdown = (visible) => {
+        settimeTabledropDownVisible(visible);
+    }
 
     return (
         <>
@@ -106,6 +112,21 @@ const Header = () => {
                                     </div>
                                 )}
                             </div>
+
+                            <div
+                                className='dropdown'
+                                onMouseEnter={() => toggleTimeTableDropdown(true)}
+                                onMouseLeave={() => toggleTimeTableDropdown(false)}
+                            >
+                                <span className="nav-link">Time Table</span>
+                                {timeTabledropDown && (
+                                    <div className='dropdown-menu'>
+                                        <Link to="/AddTimeTable" className="dropdown-item">Add Timetable</Link>
+                                        <Link to="/ViewTimeTable" className="dropdown-item">View Timetable</Link>
+                                    </div>
+                                )}
+                            </div>
+
                         </nav>
                     )}
 
