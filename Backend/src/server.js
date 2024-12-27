@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./Routes/AuthRoutes');
 const userRoutes = require('./Routes/UserRoutes');
 const courseRoutes = require('./Routes/CourseRoutes');
+const timeTableRoutes = require('./Routes/TimeTableRoutes');
 
 
 // Database connection function
@@ -40,6 +41,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes); // JWT-protected routes
 app.use("/api/courses", courseRoutes);
+app.use("/api/timeTable", timeTableRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 7002;

@@ -17,6 +17,9 @@ import AddCourses from './components/Admin/Courses/AddCourses/AddCourses';
 import ViewCourses from './components/Admin/Courses/ViewCourses/ViewCourses';
 import UpdateCourses from './components/Admin/Courses/UpdateCourses/UpdateCourses';
 import EnrollStudents from './components/Admin/Courses/EnrollStudents/EnrollStudents';
+import AddTimeTable from './components/Admin/TimeTables/Create/AddTimeTable';
+import ViewTimeTable from './components/Admin/TimeTables/ViewTimeTable/ViewTimeTable';
+
 
 
 import { AuthContext } from './context/AuthContext';
@@ -48,6 +51,8 @@ const App = () => {
                 <Route path="/viewCourses" element={<ViewCourses />} />
                 <Route path="/updateCourses/:id" element={<UpdateCourses />} />
                 <Route path="/EnrollStudents" element={<EnrollStudents />} />
+                <Route path="/AddTimeTable" element={<AddTimeTable />} />
+                <Route path="/ViewTimeTable" element={<ViewTimeTable/>} />
               </>
             )}
 
