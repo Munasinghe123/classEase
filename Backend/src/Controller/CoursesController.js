@@ -140,6 +140,24 @@ const getCoursesByFaculty = async (req, res) => {
     }
 };
 
+const getCourseByStudent = async (req, res) => {
+    try {
+        const userId = req.params.studentId;
+        const courses = await Course.find({ enrolledStudent: userId })
+            .populate('assignedFaculty', 'name email') // Optional: Populate assigned faculty details
+            .select('name code description credits'); // Only select necessary fields
+
+        if (!courses || courses.length === 0) {
+            return res.status(404).json({ message: "No courses found for the student." });
+        }
+        console.log("courses",courses);
+        res.status(200).json(courses);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "An error occurred while fetching courses." });
+    }
+};
+
 
 module.exports = {
     getAllCourses,
@@ -148,5 +166,6 @@ module.exports = {
     getCourseById,
     updateCourse,
     deleteCourse,
-    getCoursesByFaculty
+    getCoursesByFaculty,
+    getCourseByStudent
 };
