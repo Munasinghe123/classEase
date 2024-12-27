@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import './Faculty.css';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faEnvelope, faBook } from '@fortawesome/free-solid-svg-icons';
 
 function FacultyDashboard() {
     const { user } = useContext(AuthContext);
     const [photo, setPhoto] = useState(null);
-    const [courses, setCourses] = useState([]);  // For storing the courses assigned to the faculty
+    const [courses, setCourses] = useState([]); // For storing the courses assigned to the faculty
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -15,7 +17,7 @@ function FacultyDashboard() {
                 const response = await axios.get(`http://localhost:7001/api/users/getUserById/${user.id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                    }
+                    },
                 });
                 setPhoto(response.data.user.photo);
             } catch (err) {
@@ -32,7 +34,7 @@ function FacultyDashboard() {
                 const response = await axios.get(`http://localhost:7001/api/courses/getCoursesByFaculty/${user.id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                    }
+                    },
                 });
                 setCourses(response.data);
             } catch (err) {
@@ -43,35 +45,44 @@ function FacultyDashboard() {
     }, [user.id]);
 
     return (
-        <div className='faculty-container'>
-            <h1>Faculty Member Dashboard</h1>
+        <div className='main-container'>
+            <div className="faculty-container">
+                <h1 className="Faculty-Dashboard-topic">Faculty Dashboard</h1>
 
-            <div className="card">
-                <div className="card-body">
-                    {photo ? (
-                        <img
-                            src={`http://localhost:7001/uploads/${photo}`}
-                            alt={user.name}
-                            className="user-photo"
-                        />
-                    ) : (
-                        <img src="/defaultAvatar.jpg" alt="Default Avatar" className="user-photo" />
-                    )}
-                    <p className='faculty-name'>Name: {user.name}</p>
-                    <p className='faculty-email'>Email: {user.email}</p>
-
-                    <p className='assigned-courses'>Assigned Courses:</p>
-                    <ul>
-                        {courses.length > 0 ? (
-                            courses.map(course => (
-                                <li key={course._id}>
-                                    <strong>{course.name}</strong> ({course.code}) 
-                                </li>
-                            ))
+                <div className="faculty-cards">
+                    <div className="photo-container">
+                        {photo ? (
+                            <img
+                                src={`http://localhost:7001/uploads/${photo}`}
+                                alt={user.name}
+                                className="user-photos"
+                            />
                         ) : (
-                            <li>No courses assigned</li>
+                            <img src="/defaultAvatar.jpg" alt="Default Avatar" className="user-photos" />
                         )}
-                    </ul>
+                    </div>
+                    <div className="faculty-details">
+                        <p>
+                            <FontAwesomeIcon icon={faUser} /> <strong>Name:</strong> {user.name}
+                        </p>
+                        <p>
+                            <FontAwesomeIcon icon={faEnvelope} /> <strong>Email:</strong> {user.email}
+                        </p>
+                        <p>
+                            <FontAwesomeIcon icon={faBook} /> <strong>Assigned Courses:</strong>
+                        </p>
+                        <ul>
+                            {courses.length > 0 ? (
+                                courses.map((course) => (
+                                    <li key={course._id}>
+                                        {course.name} ({course.code})
+                                    </li>
+                                ))
+                            ) : (
+                                <li>No courses assigned</li>
+                            )}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
