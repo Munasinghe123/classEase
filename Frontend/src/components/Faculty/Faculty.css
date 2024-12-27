@@ -1,46 +1,104 @@
-.faculty-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+/* Faculty.css */
+
+.main-container {
     height: 100vh;
-    background-color: #f0f0f0;
-    padding: 20px;
 }
 
-.card {
-    background-color: white;
-    width: 100%;
-    max-width: 400px;
+.faculty-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin-top: 20px;
-    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Title */
+.Faculty-Dashboard-topic {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+/* Cards Container */
+.faculty-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Photo Container */
+.photo-container {
+    flex: 1;
     text-align: center;
 }
 
-.card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.user-photo {
-    width: 120px;
-    height: 120px;
+.user-photos {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 15px;
+    border: 3px solid #ff9800;
+    transition: transform 0.3s;
 }
 
-.faculty-name{
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
+.user-photos:hover {
+    transform: scale(1.1);
 }
 
-.faculty-email {
-    font-size: 1rem;
+/* Faculty Details */
+.faculty-details {
+    flex: 2;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.faculty-details p {
+    margin: 10px 0;
+    font-size: 1.2rem;
     color: #555;
+}
+
+.faculty-details strong {
+    color: #333;
+}
+
+.faculty-details ul {
+    list-style-type: disc;
+    margin: 10px 0 0 20px;
+    padding: 0;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+/* Hover Effect for List */
+.faculty-details ul li {
+    margin: 5px 0;
+    transition: color 0.3s;
+}
+
+.faculty-details ul li:hover {
+    color: #ff9800;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+    .faculty-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .photo-container,
+    .faculty-details {
+        flex: none;
+        width: 100%;
+    }
 }
