@@ -1,54 +1,7 @@
-/* General container style */
 .EnrollStudents-Container {
-    margin: 0 auto;
-    padding: 20px;
-    /* max-width: 900px; */
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    height: 100vh;
     margin-top: 150px;
+    height: 100vh;
 }
-
-/* Header styling */
-h1 {
-    text-align: center;
-    color: #333;
-}
-
-/* Table styling */
-.enrollStudents-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-}
-
-.enrollStudents-table table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.enrollStudents-table th,
-.enrollStudents-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.enrollStudents-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-/* Select styling */
-.enrollStudents-table select {
-    padding: 5px;
-    width: 200px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Button styling */
 .enroll-btn {
     padding: 8px 16px;
     background-color: #4CAF50;
@@ -57,21 +10,12 @@ h1 {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-}
-
-.enroll-btn:hover {
-    background-color: #45a049;
-}
-
-/* Responsiveness: Make the table scrollable on smaller screens */
-@media (max-width: 768px) {
-    .enrollStudents-table {
-        overflow-x: auto;
-        display: block;
-    }
-
-    .enrollStudents-table table {
-        width: 100%;
-        min-width: 600px;
-    }
-}
+  }
+  .enrollStudents-table select {
+    padding: 5px;
+    width: 200px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+    

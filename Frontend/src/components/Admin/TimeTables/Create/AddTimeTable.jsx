@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './AddTimeTable.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AddTimeTable() {
 
@@ -9,6 +10,8 @@ function AddTimeTable() {
     const [time, setTime] = useState('');
     const [location, setLocation] = useState('');
     const [member, setMember] = useState('');
+
+    const navigate = useNavigate();
 
     //fetching faculty users
     useEffect(() => {
@@ -57,6 +60,8 @@ function AddTimeTable() {
                     setTime(""),
                     setLocation(""),
                     setMember("")
+
+                    navigate("/viewTimeTable");
             } else {
                 console.log("error ")
                 alert("Time table creation was unsuccessful")
