@@ -22,9 +22,18 @@ const createTimeTable = async (req, res) => {
         console.log(err);
         res.status(500).json({ message: 'unable to create a timetable' })
     }
+}
 
+const getTimeTable = async (req, res) => {
+    try {
+        const timeTable = await TimeTable.find().populate("assignedFacultyMember", "name");
+
+        res.status(200).json(timeTable);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 module.exports = {
-    createTimeTable
+    createTimeTable, getTimeTable
 }

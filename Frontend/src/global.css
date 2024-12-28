@@ -1,0 +1,160 @@
+/* Global styles for body */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fc;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Global styles for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #0056b3;
+}
+
+h3 {
+  font-size: 1.75rem;
+  color: #004085;
+}
+
+h4, h5, h6 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Add subtle borders for headings (optional) */
+h1::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 3px;
+  background-color: #007BFF;
+  margin: 8px auto;
+}
+
+/* Heading responsiveness */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Global styles for tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1rem;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Prevent border-radius from cutting off */
+  transform: translateY(20px); /* Initial position for animation */
+  opacity: 0; /* Initially hidden */
+  animation: pop-in 0.8s ease-out forwards; /* Animation for "popping" effect */
+}
+
+/* Table Header styles */
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Header Styling */
+th {
+  background-color: #007BFF;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Body Styling */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+td {
+  font-size: 0.95rem;
+}
+
+/* Button Styling */
+button {
+  padding: 8px 12px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.timeTableUpdate-btn {
+  background-color: #28a745; /* Green button */
+}
+
+.timeTableDelete-btn {
+  background-color: #dc3545; /* Red button */
+}
+
+button:focus {
+  outline: none; /* Remove outline on click */
+}
+
+/* Table Pop-in Animation */
+@keyframes pop-in {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+}

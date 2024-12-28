@@ -1,3 +1,20 @@
 .main-contianer {
     height: 100vh;
+    margin-top: 150px;
+}
+.timeTableUpdate-btn{
+    background-color: green;
+    transition: background-color 0.3s;
+}
+.timeTableUpdate-btn:hover{
+    background-color: darkgreen;
+}
+
+
+.timeTableDelete-btn{
+    background-color: red;
+    transition: background-color 0.3s;
+}
+.timeTableDelete-btn:hover{
+    background-color: darkred;
 }
