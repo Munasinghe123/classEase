@@ -68,12 +68,12 @@ table {
   margin: 20px 0;
   font-size: 1rem;
   color: #333;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-  border-radius: 10px; /* Rounded corners */
-  overflow: hidden; /* Prevent border-radius from cutting off */
-  transform: translateY(20px); /* Initial position for animation */
-  opacity: 0; /* Initially hidden */
-  animation: pop-in 0.8s ease-out forwards; /* Animation for "popping" effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: pop-in 0.8s ease-out forwards;
 }
 
 /* Table Header styles */
@@ -83,7 +83,6 @@ th, td {
   border-bottom: 1px solid #ddd;
 }
 
-/* Header Styling */
 th {
   background-color: #007BFF;
   color: white;
@@ -94,7 +93,6 @@ th {
   border-top-right-radius: 10px;
 }
 
-/* Body Styling */
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -121,19 +119,19 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 .timeTableUpdate-btn {
-  background-color: #28a745; /* Green button */
+  background-color: #28a745;
 }
 
 .timeTableDelete-btn {
-  background-color: #dc3545; /* Red button */
+  background-color: #dc3545;
 }
 
 button:focus {
-  outline: none; /* Remove outline on click */
+  outline: none;
 }
 
 /* Table Pop-in Animation */
@@ -148,13 +146,71 @@ button:focus {
   }
 }
 
-/* Responsive Design for Mobile */
+/* Form styles */
+form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form input,
+form select,
+form textarea {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+form label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+form button[type="submit"] {
+  width: 100%;
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design for Forms */
 @media (max-width: 768px) {
-  table {
+  form {
+    padding: 15px;
+  }
+
+  form input,
+  form select,
+  form textarea {
     font-size: 0.9rem;
   }
 
-  th, td {
-    padding: 10px;
+  form button[type="submit"] {
+    font-size: 0.95rem;
   }
 }

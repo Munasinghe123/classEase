@@ -19,6 +19,7 @@ import UpdateCourses from './components/Admin/Courses/UpdateCourses/UpdateCourse
 import EnrollStudents from './components/Admin/Courses/EnrollStudents/EnrollStudents';
 import AddTimeTable from './components/Admin/TimeTables/Create/AddTimeTable';
 import ViewTimeTable from './components/Admin/TimeTables/ViewTimeTable/ViewTimeTable';
+import UpdateTimeTable from './components/Admin/TimeTables/UpdateTimeTable/UpdateTimeTable';
 
 
 
@@ -52,7 +53,8 @@ const App = () => {
                 <Route path="/updateCourses/:id" element={<UpdateCourses />} />
                 <Route path="/EnrollStudents" element={<EnrollStudents />} />
                 <Route path="/AddTimeTable" element={<AddTimeTable />} />
-                <Route path="/ViewTimeTable" element={<ViewTimeTable/>} />
+                <Route path="/ViewTimeTable" element={<ViewTimeTable />} />
+                <Route path="/UpdateTimeTable/:id" element={<UpdateTimeTable />} />
               </>
             )}
 
