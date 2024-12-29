@@ -25,6 +25,25 @@ function ViewTimeTable() {
         fetchTimetable();
     }, []);
 
+    const deleteTimeTable = async (id) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.delete(`http://localhost:7001/api/timeTable/deleteTimeTable/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response.status === 200) {
+                setTimeTable(timeTable.filter((d) => d._id !== id));
+                alert('Time Table deleted successfully');
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
         <div className="main-contianer">
             <h1 className="Timetable-logic">View Time Table</h1>
@@ -47,17 +66,19 @@ function ViewTimeTable() {
                             <td>{data.location}</td>
                             <td>{data.assignedFacultyMember?.name}</td>
                             <td>
-                                <Link>
+                                <Link to={`/UpdateTimeTable/${data._id}`}>
                                     <button className='timeTableUpdate-btn'>Update</button>
                                 </Link>
 
-                                <button className='timeTableDelete-btn'>Delete</button>
+                                <button
+                                    onClick={() => deleteTimeTable(data._id)}
+                                    className='timeTableDelete-btn'>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-        </div>
+        </div >
     );
 }
 
