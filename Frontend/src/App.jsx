@@ -20,7 +20,9 @@ import EnrollStudents from './components/Admin/Courses/EnrollStudents/EnrollStud
 import AddTimeTable from './components/Admin/TimeTables/Create/AddTimeTable';
 import ViewTimeTable from './components/Admin/TimeTables/ViewTimeTable/ViewTimeTable';
 import UpdateTimeTable from './components/Admin/TimeTables/UpdateTimeTable/UpdateTimeTable';
-
+import ViewResources from './components/Admin/Resources/ViewResources/ViewResources';
+import CreateResources from './components/Admin/Resources/Add Recources/CreateResources';
+import UpdateResource from './components/Admin/Resources/UpdateResource/UpdateResource';
 
 
 import { AuthContext } from './context/AuthContext';
@@ -55,6 +57,9 @@ const App = () => {
                 <Route path="/AddTimeTable" element={<AddTimeTable />} />
                 <Route path="/ViewTimeTable" element={<ViewTimeTable />} />
                 <Route path="/UpdateTimeTable/:id" element={<UpdateTimeTable />} />
+                <Route path="/ViewResources" element={<ViewResources />} />
+                <Route path="/CreateResources" element={<CreateResources />} />
+                <Route path="/UpdateResource" element={<UpdateResource />} />
               </>
             )}
 

@@ -7,7 +7,7 @@ const authRoutes = require('./Routes/AuthRoutes');
 const userRoutes = require('./Routes/UserRoutes');
 const courseRoutes = require('./Routes/CourseRoutes');
 const timeTableRoutes = require('./Routes/TimeTableRoutes');
-
+const resourceRoutes = require('./Routes/ResourcesRoutes');
 
 // Database connection function
 const dbConnection = async () => {
@@ -42,6 +42,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes); // JWT-protected routes
 app.use("/api/courses", courseRoutes);
 app.use("/api/timeTable", timeTableRoutes);
+app.use("/api/resources", resourceRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 7002;

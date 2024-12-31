@@ -9,6 +9,7 @@ const Header = () => {
     const [usersdropdownVisible, setUsersDropdownVisible] = useState(false);
     const [coursesdropdownVisible, setCoursesDropdownVisible] = useState(false);
     const [timeTabledropDown, settimeTabledropDownVisible] = useState(false);
+    const [ResourcesDropDown, setResourcesDropDown] = useState(false);
     const [photo, setPhoto] = useState(null);
 
     useEffect(() => {
@@ -47,6 +48,13 @@ const Header = () => {
     const toggleTimeTableDropdown = (visible) => {
         settimeTabledropDownVisible(visible);
     }
+
+    //resources dropdown
+
+    const toggleResourcesDropDown = (visible) => {
+        setResourcesDropDown(visible);
+    }
+
 
     return (
         <>
@@ -125,6 +133,22 @@ const Header = () => {
                                         <Link to="/ViewTimeTable" className="dropdown-item">View Timetable</Link>
                                     </div>
                                 )}
+                            </div>
+
+                            <div className='dropdown'
+                                onMouseEnter={() => toggleResourcesDropDown(true)}
+                                onMouseLeave={() => toggleResourcesDropDown(false)}
+                            >
+                                <span className='nav-link'>Resources</span>
+                                {
+                                    ResourcesDropDown && (
+                                        <div className='dropdown-menu'>
+                                            <Link to="/ViewResources" className="dropdown-item">View Resources</Link>
+                                            <Link to="/CreateResources" className="dropdown-item">Add Resoucres</Link>
+                                        </div>
+                                    )
+                                }
+
                             </div>
 
                         </nav>

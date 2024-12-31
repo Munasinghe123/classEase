@@ -16,7 +16,7 @@ function ViewTimeTable() {
                     },
                 });
 
-                console.log(response.data);
+                console.log("time table", response.data);
                 setTimeTable(response.data);
             } catch (err) {
                 console.log(err);
@@ -63,7 +63,7 @@ function ViewTimeTable() {
                         <tr key={index}>
                             <td>{data.course}</td>
                             <td>{data.time}</td>
-                            <td>{data.location}</td>
+                            <td>{data.location?.name}</td>
                             <td>{data.assignedFacultyMember?.name}</td>
                             <td>
                                 <Link to={`/UpdateTimeTable/${data._id}`}>

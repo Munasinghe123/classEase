@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TimeTableSchema = mongoose.Schema({
+const TimeTableSchema = new mongoose.Schema({
 
     course: {
         type: String
@@ -9,7 +9,7 @@ const TimeTableSchema = mongoose.Schema({
         type: String
     },
     location: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId, ref: "Resourses"
     },
     assignedFacultyMember: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"

@@ -8,17 +8,18 @@ import 'jspdf-autotable';
 
 function ViewStudents() {
     const [user, setUser] = useState([]);
-    const [searchTerm, setSearchTerm] = useState(''); 
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const token = localStorage.getItem('token'); 
+                const token = localStorage.getItem('token');
                 const response = await axios.get('http://localhost:7001/api/users/getAllUsers', {
                     headers: {
                         Authorization: `Bearer ${token}`, // Attach the token to the request
                     },
                 });
+                console.log("users", response.data);
                 setUser(response.data);
             } catch (err) {
                 console.log(err);
@@ -49,8 +50,9 @@ function ViewStudents() {
     };
 
     const students = user.filter((u) => u.role === 'student');
+    console.log("students", students);
 
-    // Filter students based on the search term
+   
     const filteredStudents = students.filter((student) =>
         student.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -88,35 +90,49 @@ function ViewStudents() {
                 Download PDF
             </button>
 
-            <div className='card-container'>
-                {filteredStudents.length > 0 ? (
-                    filteredStudents.map((student) => (
+            <div className='table-container'>
 
-                        <div className='student-card' key={student._id}>
-                            <img
-                                src={`http://localhost:7001/uploads/${student.photo}`}
-                                alt={student.name}
-                                className="student-photo"
-                            />
-                            <h2>{student.name}</h2>
-                            <p><strong>Email:</strong> {student.email}</p>
-                            <div className='card-buttons'>
-                                <Link to={`/update/${student._id}`}>
-                                    <button className='update-btn'>Update</button>
-                                </Link>
-                                <button
-                                    className='delete-btn'
-                                    onClick={() => deleteStudent(student._id)}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Photo</th>
+                            <th>Email</th>
+                            <th>Operations</th>
+                        </tr>
+                    </thead>
 
-                    ))
-                ) : (
-                    <p>No students found</p>
-                )}
+                    <tbody>
+                        {
+                            filteredStudents.map((std) => {
+
+                                return (
+                                    <tr key={std._id}>
+                                        <td>{std.name}</td>
+
+                                        <td>
+                                            <img
+                                                src={`http://localhost:7001/uploads/${std.photo}`}
+                                                alt={std.name}
+                                                className="student-photo"
+                                            />
+                                        </td>
+
+                                        <td>{std.email}</td>
+                                        <td>
+                                            <Link to={`/update/${std._id}`}>
+                                                <button className='update-btn'>Update</button>
+                                            </Link>
+                                            <button className='delete-btn'
+                                                onClick={() => deleteStudent(std._id)}>Delete</button>
+                                        </td>
+                                    </tr>
+                                )
+
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     );

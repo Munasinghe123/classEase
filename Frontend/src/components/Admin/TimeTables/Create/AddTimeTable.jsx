@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom';
 function AddTimeTable() {
 
     const [users, setUsers] = useState([]);
+    const [locations, setLocations] = useState([]);
+
+    const [selectedLocation, setselectedLocation] = useState('');
     const [name, setName] = useState('');
     const [time, setTime] = useState('');
-    const [location, setLocation] = useState('');
     const [member, setMember] = useState('');
 
     const navigate = useNavigate();
@@ -36,6 +38,26 @@ function AddTimeTable() {
     //filtering the faculty users from the user array
     const facultyMembers = users.filter((f) => f.role === 'faculty');
 
+    //fetching resources
+    useEffect(() => {
+        const fetchResources = async () => {
+            try {
+
+                const token = localStorage.getItem("token");
+                const response = await axios.get(`http://localhost:7001/api/resources/getAllResources`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                console.log("resources", response.data);
+                setLocations(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetchResources();
+    }, [])
+
     const submitForm = async (e) => {
         e.preventDefault();
         try {
@@ -44,7 +66,7 @@ function AddTimeTable() {
             const formData = {
                 course: name,
                 time,
-                location,
+                location: selectedLocation,
                 assignedFacultyMember: member
             }
             const response = await axios.post(`http://localhost:7001/api/timeTable/createTimeTable`, formData, {
@@ -58,10 +80,9 @@ function AddTimeTable() {
 
                 setName(""),
                     setTime(""),
-                    setLocation(""),
                     setMember("")
 
-                    navigate("/viewTimeTable");
+                navigate("/viewTimeTable");
             } else {
                 console.log("error ")
                 alert("Time table creation was unsuccessful")
@@ -92,11 +113,19 @@ function AddTimeTable() {
                         required /><br /><br />
 
                     <label htmlFor='courseLocation'>Location</label>
-                    <input type='text'
-                        name='courseLocation'
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        required /><br /><br />
+                    <select
+                        value={selectedLocation}
+                        onChange={(e) => setselectedLocation(e.target.value)}
+                    >
+                        <option value="">Select a location</option>
+                        {
+                            locations.map((location) => {
+                                return (
+                                    <option key={location._id} value={location._id}>{location.name}</option>
+                                );
+                            })
+                        }
+                    </select>
 
                     <label htmlFor='facultyMember'>Assign Faculty Member</label>
                     <select

@@ -16,7 +16,7 @@ function ViewCourses() {
                         Authorization: `Bearer ${token}`, // Attach the token to the request
                     },
                 });
-                console.log(response.data);
+                console.log("courses", response.data);
                 setCourses(response.data);
             } catch (err) {
                 console.log(err);
@@ -24,7 +24,7 @@ function ViewCourses() {
             }
         };
         fetchCourses();
-    }, []);  //practice branch
+    }, []);
 
     // Delete course function
     const handleDelete = async (id) => {
@@ -68,25 +68,26 @@ function ViewCourses() {
                             <td>{course.code}</td>
                             <td>{course.description}</td>
                             <td>{course.credits}</td>
-                            <td>{course.assignedFaculty.name}</td>
                             <td>
-                                {/* Display enrolled students */}
-                                {course.enrolledStudent && course.enrolledStudent.length > 0 ? (
-                                    <ul>
-                                        {course.enrolledStudent.map((student) => (
-                                            <li key={student._id}>{student.name}</li>
-                                        ))}
-                                    </ul>
-                                ) : (
-                                    <p>No students enrolled</p>
-                                )}
+                                {course.assignedFaculty?.name || 'Not Assigned'}
+                            </td>
+                            <td>
+                                <ul key={course.enrolledStudent._id}>
+
+                                    {course.enrolledStudent.map((std) => {
+                                        return (
+                                            <li>{std.name}</li>
+                                        );
+                                    })}
+
+                                </ul>
                             </td>
                             <td>
                                 <Link to={`/updateCourses/${course._id}`}>
-                                    <button className='course-update-button'>Update</button>
+                                    <button className="course-update-button">Update</button>
                                 </Link>
                                 <button
-                                    className='course-delete-button'
+                                    className="course-delete-button"
                                     onClick={() => handleDelete(course._id)}
                                 >
                                     Delete
@@ -95,6 +96,7 @@ function ViewCourses() {
                         </tr>
                     ))}
                 </tbody>
+
             </table>
         </div>
     );

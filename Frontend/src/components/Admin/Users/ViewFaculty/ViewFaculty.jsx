@@ -38,6 +38,8 @@ function ViewFaculty() {
         faculty.name.toLowerCase().includes(searchItem.toLowerCase())
     );
 
+    console.log("filterd faculties", filterdFaculty);
+
     // Delete function
     const deleteMember = async (id) => {
         try {
@@ -92,39 +94,44 @@ function ViewFaculty() {
             </div>
 
             <div className='card-container'>
-                {filterdFaculty.length > 0 ? (
-                    filterdFaculty.map((faculty, index) => {
-                        return (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Photo</th>
+                            <th>Email</th>
+                            <th>Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            filterdFaculty.map((fclty) => {
+                                return (
+                                    <tr key={fclty._id}>
+                                        <td>{fclty.name}</td>
+                                        <td>
+                                            <img
+                                                src={`http://localhost:7001/uploads/${fclty.photo}`}
+                                                alt={fclty.name}
+                                                className='faculty-photo'
+                                            />
+                                        </td>
+                                        <td>{fclty.email}</td>
+                                        <td>
+                                            <Link to={`/updateUser${fclty._id}`}>
+                                                <button className='update-btn'>Update</button>
+                                            </Link>
 
-                            <div className='faculty-card' key={index}>
-                                <div className='image'>
-                                    <img src={`http://localhost:7001/uploads/${faculty.photo}`}
-                                        alt={faculty.name}
-                                    />
-                                </div>
-
-                                <h2>{faculty.name}</h2>
-                                <p><strong>Email :</strong>{faculty.email}</p>
-
-                                <div className='card-buttons'>
-
-                                    <Link to={`/update/${faculty._id}`}>
-                                        <button className='update-button'>Update</button>
-                                    </Link>
-
-                                    {/* Delete button */}
-                                    <div className='delete-button'>
-                                        <button onClick={() => deleteMember(faculty._id)} className="delete-btn">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })
-                ) : (
-                    <p>No Faculties</p>
-                )
-
-                }
+                                            <button
+                                                className='delete-btn'
+                                                onClick={() => deleteMember(fclty._id)}>Delete</button>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         </div >
     );

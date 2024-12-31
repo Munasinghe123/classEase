@@ -1,5 +1,6 @@
 const TimeTable = require('../Model/TimeTableModel');
 const User = require('../Model/UserModel');
+const Resource = require('../Model/ReourcesModel');
 
 const createTimeTable = async (req, res) => {
 
@@ -10,6 +11,12 @@ const createTimeTable = async (req, res) => {
         if (!faculty) {
             console.log("no such faculty");
             return res.status(404).json({ message: 'no such faculty' });
+        }
+
+        const resource = await Resource.findOne({ _id: location });
+        if (!resource) {
+            console.log("no such resource")
+            return res.status(404).json({ message: 'no such resource' });
         }
 
         const timeTable = new TimeTable({
@@ -26,7 +33,8 @@ const createTimeTable = async (req, res) => {
 
 const getTimeTable = async (req, res) => {
     try {
-        const timeTable = await TimeTable.find().populate("assignedFacultyMember", "name");
+        const timeTable = await TimeTable.find().populate("assignedFacultyMember", "name")
+            .populate("location", "name");
 
         res.status(200).json(timeTable);
     } catch (err) {
@@ -81,9 +89,9 @@ const deleteTimeTable = async (req, res) => {
             return res.status(404).json({ message: "Timetable not found" });
         }
 
-        res.status(200).json({ 
-            message: "Timetable deleted successfully", 
-            timeTable 
+        res.status(200).json({
+            message: "Timetable deleted successfully",
+            timeTable
         });
     } catch (err) {
         console.error(err);
@@ -94,5 +102,5 @@ const deleteTimeTable = async (req, res) => {
 
 
 module.exports = {
-    createTimeTable, getTimeTable, getTimeTableById, updateTimeTable,deleteTimeTable
+    createTimeTable, getTimeTable, getTimeTableById, updateTimeTable, deleteTimeTable
 }
