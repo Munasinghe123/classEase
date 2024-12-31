@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const TimeTableSchema = new mongoose.Schema({
 
     course: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId, ref: "Courses"
     },
     time: {
         type: String
     },
     location: {
-        type: mongoose.Schema.Types.ObjectId, ref: "Resourses"
+        type: mongoose.Schema.Types.ObjectId, ref: "Rooms"
     },
     assignedFacultyMember: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"

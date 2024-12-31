@@ -5,7 +5,7 @@ const User = require('../Model/UserModel');
 const getAllCourses = async (req, res) => {
     try {
         const courses = await Course.find().populate('assignedFaculty', 'name email')
-                                            .populate('enrolledStudent', 'name email');
+            .populate('enrolledStudent', 'name email');
         res.status(200).json(courses);
     } catch (err) {
         console.error(err);
@@ -91,25 +91,34 @@ const updateCourse = async (req, res) => {
     const { name, code, description, credits, assignedFaculty } = req.body;
 
     try {
+        // Check if the course exists
         const course = await Course.findById(req.params.id);
         if (!course) return res.status(404).json({ message: 'Course not found' });
 
-        course.name = name || course.name;
-        course.code = code || course.code;
-        course.description = description || course.description;
-        course.credits = credits || course.credits;
-
+        // If assignedFaculty is provided, validate that the faculty exists
         if (assignedFaculty) {
-            course.assignedFaculty = assignedFaculty;  // This should be the ObjectId of the faculty
+            const faculty = await User.findOne({ _id: assignedFaculty, role: 'faculty' });
+            if (!faculty) {
+                return res.status(404).json({ message: 'No such faculty member' });
+            }
         }
 
-        await course.save();
-        res.status(200).json(course);
+        // Update the course using findByIdAndUpdate
+        const updatedCourse = await Course.findByIdAndUpdate(
+            req.params.id,
+            { name, code, description, credits, assignedFaculty },
+            { new: true } // return the updated course
+        );
+
+        // Send the updated course back as the response
+        res.status(200).json(updatedCourse);
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error updating course' });
     }
 };
+
 
 
 // Delete a course

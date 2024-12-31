@@ -20,9 +20,9 @@ import EnrollStudents from './components/Admin/Courses/EnrollStudents/EnrollStud
 import AddTimeTable from './components/Admin/TimeTables/Create/AddTimeTable';
 import ViewTimeTable from './components/Admin/TimeTables/ViewTimeTable/ViewTimeTable';
 import UpdateTimeTable from './components/Admin/TimeTables/UpdateTimeTable/UpdateTimeTable';
-import ViewResources from './components/Admin/Resources/ViewResources/ViewResources';
-import CreateResources from './components/Admin/Resources/Add Recources/CreateResources';
-import UpdateResource from './components/Admin/Resources/UpdateResource/UpdateResource';
+import ViewRooms from './components/Admin/Rooms/ViewRooms/ViewRooms';
+import CreateRooms from './components/Admin/Rooms/Add Rooms/CreateRooms';
+import UpdateRooms from './components/Admin/Rooms/UpdateRooms/UpdateRooms';
 
 
 import { AuthContext } from './context/AuthContext';
@@ -57,9 +57,9 @@ const App = () => {
                 <Route path="/AddTimeTable" element={<AddTimeTable />} />
                 <Route path="/ViewTimeTable" element={<ViewTimeTable />} />
                 <Route path="/UpdateTimeTable/:id" element={<UpdateTimeTable />} />
-                <Route path="/ViewResources" element={<ViewResources />} />
-                <Route path="/CreateResources" element={<CreateResources />} />
-                <Route path="/UpdateResource" element={<UpdateResource />} />
+                <Route path="/ViewRooms" element={<ViewRooms/>} />
+                <Route path="/CreateRooms" element={<CreateRooms />} />
+                <Route path="/UpdateRooms" element={<UpdateRooms />} />
               </>
             )}
 

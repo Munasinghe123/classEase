@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './CreateResources.css';
+import './CreateRooms.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function CreateResources() {
+function CreateRooms() {
 
     const navigate = useNavigate();
 
@@ -15,11 +15,11 @@ function CreateResources() {
 
         const formData = {
             name,
-            resourceType: type
+            roomType: type
         }
 
         const token = localStorage.getItem("token");
-        const response = await axios.post(`http://localhost:7001/api/resources/createResource`, formData, {
+        const response = await axios.post(`http://localhost:7001/api/rooms/createRooms`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -32,7 +32,7 @@ function CreateResources() {
             setName("");
             setType("");
 
-            navigate('/ViewResources');
+            navigate('/ViewRooms');
         } else {
             alert('Couldnt add the resource');
         }
@@ -40,7 +40,7 @@ function CreateResources() {
 
     return (
         <div className='resource-container'>
-            <h1>Create Resources </h1>
+            <h1>Create Rooms </h1>
 
             <form onSubmit={submitForm}>
 
@@ -60,10 +60,10 @@ function CreateResources() {
                     onChange={(e) => setName(e.target.value)}
                 />
 
-                <button type='submit'>Add Resource</button>
+                <button type='submit'>Add Room</button>
             </form>
         </div>
     )
 }
 
-export default CreateResources
+export default CreateRooms
