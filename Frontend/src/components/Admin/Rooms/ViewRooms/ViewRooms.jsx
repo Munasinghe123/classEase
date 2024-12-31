@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import './ViewResources.css'
+import './ViewRooms.css'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-function ViewResources() {
+function ViewRooms() {
 
-    const [resources, setResources] = useState([]);
+    const [rooms, setRooms] = useState([]);
 
     useEffect(() => {
 
         const fetchResources = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`http://localhost:7001/api/resources/getAllResources`, {
+                const response = await axios.get(`http://localhost:7001/api/rooms/getAllRooms`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })
                 console.log(response.data);
-                setResources(response.data);
+                setRooms(response.data);
             } catch (err) {
                 console.log(err);
             }
@@ -28,7 +28,7 @@ function ViewResources() {
 
     return (
         <div className='resouces-container'>
-            <h1>Resources</h1>
+            <h1>Rooms</h1>
 
             <table>
                 <thead>
@@ -41,14 +41,14 @@ function ViewResources() {
                 <tbody>
 
                     {
-                        resources.map((res, index) => {
+                        rooms.map((res, index) => {
                             return (
                                 <tr key={res._id}>
-                                    <td>{res.resourceType}</td>
+                                    <td>{res.roomType}</td>
                                     <td>{res.name}</td>
 
                                     <td>
-                                        <Link to="/UpdateResource">
+                                        <Link to="/UpdateRooms">
                                             <button className='update-btn'>Update</button>
                                         </Link>
 
@@ -67,4 +67,4 @@ function ViewResources() {
     )
 }
 
-export default ViewResources
+export default ViewRooms;

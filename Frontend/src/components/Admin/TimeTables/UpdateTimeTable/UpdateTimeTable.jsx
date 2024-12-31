@@ -9,10 +9,13 @@ function UpdateTimeTable() {
     const navigate = useNavigate();
 
     const [users, setUsers] = useState([]);
+    const [rooms, setRooms] = useState([]);
+
     const [name, setName] = useState("");
-    const [location, setLocation] = useState("");
     const [time, setTime] = useState("");
-    const [member, setMember] = useState(null); // Initialize as null to store the object
+
+    const [location, setLocation] = useState(null);
+    const [member, setMember] = useState(null);
 
     useEffect(() => {
         const fetchTimeTable = async () => {
@@ -24,15 +27,15 @@ function UpdateTimeTable() {
                     }
                 });
 
-                console.log("relevant timetable details", response.data);
+                console.log("Relevant timetable details", response.data);
                 setName(response.data.course);
                 setLocation(response.data.location);
                 setTime(response.data.time);
-                setMember(response.data.assignedFacultyMember); // Set member object
+                setMember(response.data.assignedFacultyMember);
             } catch (err) {
                 console.log(err);
             }
-        }
+        };
 
         fetchTimeTable();
     }, [id]);
@@ -47,19 +50,35 @@ function UpdateTimeTable() {
                     }
                 });
                 setUsers(response.data);
-                console.log("all users", response.data);
+                console.log("All users", response.data);
             } catch (err) {
                 console.log(err);
             }
-        }
+        };
         fetchAllUsers();
     }, []);
 
-    const facultyMembers = users.filter((f) => f.role === "faculty");
-    console.log("faculties", facultyMembers);
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get(`http://localhost:7001/api/rooms/getAllRooms`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                console.log("All rooms", response.data);
+                setRooms(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchRooms();
+    }, []);
 
-    const nonSelected = facultyMembers.filter((f) => f._id !== member?._id); // Prevent selecting the assigned member
-    console.log("non-selected", nonSelected);
+    const facultyMembers = users.filter((f) => f.role === "faculty");
+    const nonSelectedMembers = facultyMembers.filter((f) => f._id !== member?._id);
+    const nonSelectedrooms = rooms.filter((r) => r._id !== location?._id);
 
     const submitForm = async (e) => {
         e.preventDefault();
@@ -69,8 +88,8 @@ function UpdateTimeTable() {
             const formData = {
                 course: name,
                 time,
-                location,
-                assignedFacultyMember: member?._id // Use _id from the selected member object
+                location: location?._id, // Send only the location _id
+                assignedFacultyMember: member?._id // Send only the member _id
             };
 
             const response = await axios.put(`http://localhost:7001/api/timeTable/updateTimeTable/${id}`, formData, {
@@ -85,12 +104,11 @@ function UpdateTimeTable() {
             } else {
                 alert("Could not update timetable");
             }
-            console.log("updated timetable", response.data);
         } catch (err) {
             console.log(err);
             alert("Could not update timetable");
         }
-    }
+    };
 
     return (
         <div className='updateTimeTable-container'>
@@ -105,14 +123,6 @@ function UpdateTimeTable() {
                     onChange={(e) => setName(e.target.value)}
                 />
 
-                <label htmlFor='location'>Location</label>
-                <input
-                    type='text'
-                    name='location'
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                />
-
                 <label htmlFor='time'>Time</label>
                 <input
                     type='text'
@@ -121,23 +131,42 @@ function UpdateTimeTable() {
                     onChange={(e) => setTime(e.target.value)}
                 />
 
+                <label htmlFor='location'>Location</label>
+                <select
+                    value={location?._id || ''}
+                    onChange={(e) => {
+                        const selectedLocation = rooms.find(r => r._id === e.target.value);
+                        setLocation(selectedLocation);
+                    }}
+                >
+                    {location && (
+                        <option value={location._id} disabled>
+                            {location.name} (Current)
+                        </option>
+                    )}
+                    <option value="">Select a new location</option>
+                    {nonSelectedrooms.map((resource) => (
+                        <option key={resource._id} value={resource._id}>
+                            {resource.name}
+                        </option>
+                    ))}
+                </select>
+
                 <label htmlFor='AssignedMember'>Assigned Member</label>
                 <select
                     value={member?._id || ''}
                     onChange={(e) => {
-                        const selectedMember = nonSelected.find(f => f._id === e.target.value);
-                        setMember(selectedMember); // Update the selected member object
+                        const selectedMember = facultyMembers.find(f => f._id === e.target.value);
+                        setMember(selectedMember);
                     }}
                 >
-                    {/* Display the pre-selected member as the first option */}
                     {member && (
                         <option value={member._id} disabled>
                             {member.name} (Current)
                         </option>
                     )}
-
-                    <option value='' disabled>Choose a faculty member</option>
-                    {nonSelected.map((fMember) => (
+                    <option value="">Select a faculty member</option>
+                    {nonSelectedMembers.map((fMember) => (
                         <option key={fMember._id} value={fMember._id}>
                             {fMember.name}
                         </option>

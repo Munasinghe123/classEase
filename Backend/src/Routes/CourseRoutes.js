@@ -1,7 +1,9 @@
 const express = require('express');
-const { getAllCourses, createCourse, getCourseById, updateCourse, deleteCourse, getCoursesByFaculty, enrollStudent, getCourseByStudent } = require('../Controller/CoursesController');
+const { getAllCourses, createCourse, getCourseById, updateCourse, deleteCourse, getCoursesByFaculty,
+    enrollStudent, getCourseByStudent } = require('../Controller/CoursesController');
 const verifyToken = require('../Middleware/AuthMiddleware');
 const authorizeRoles = require('../Middleware/RoleMiddleware');
+const { verify } = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -13,7 +15,8 @@ router.put('/updateCourse/:id', verifyToken, authorizeRoles("admin", "faculty"),
 router.delete('/deleteCourse/:id', verifyToken, authorizeRoles("admin", "faculty"), deleteCourse);
 router.get('/getCoursesByFaculty/:facultyId', verifyToken, authorizeRoles("admin", "faculty"), getCoursesByFaculty);
 router.post('/enrollStudent/:id', verifyToken, authorizeRoles("admin"), enrollStudent);
-router.get('/getCourseByStudent/:studentId', verifyToken, authorizeRoles("admin","student"), getCourseByStudent);
+router.get('/getCourseByStudent/:studentId', verifyToken, authorizeRoles("admin", "student"), getCourseByStudent);
+
 
 
 module.exports = router;

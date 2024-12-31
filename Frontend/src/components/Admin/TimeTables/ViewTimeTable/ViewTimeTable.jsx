@@ -61,7 +61,7 @@ function ViewTimeTable() {
                 <tbody>
                     {timeTable.map((data, index) => (
                         <tr key={index}>
-                            <td>{data.course}</td>
+                            <td>{data.course.name}</td>
                             <td>{data.time}</td>
                             <td>{data.location?.name}</td>
                             <td>{data.assignedFacultyMember?.name}</td>

@@ -139,12 +139,12 @@ const Header = () => {
                                 onMouseEnter={() => toggleResourcesDropDown(true)}
                                 onMouseLeave={() => toggleResourcesDropDown(false)}
                             >
-                                <span className='nav-link'>Resources</span>
+                                <span className='nav-link'>Rooms</span>
                                 {
                                     ResourcesDropDown && (
                                         <div className='dropdown-menu'>
-                                            <Link to="/ViewResources" className="dropdown-item">View Resources</Link>
-                                            <Link to="/CreateResources" className="dropdown-item">Add Resoucres</Link>
+                                            <Link to="/ViewRooms" className="dropdown-item">View Rooms</Link>
+                                            <Link to="/CreateRooms" className="dropdown-item">Add Rooms</Link>
                                         </div>
                                     )
                                 }
