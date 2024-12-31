@@ -3,12 +3,13 @@ import './Student.css';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEnvelope, faBook, faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 function StudentDashboard() {
     const { user } = useContext(AuthContext);
     const [photo, setPhoto] = useState(null);
     const [courses, setCourses] = useState([]);
+    const [timetable, setTimetable] = useState([]);  // New state for timetable
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -38,14 +39,34 @@ function StudentDashboard() {
                         Authorization: `Bearer ${token}`,
                     }
                 });
-                console.log(response.data);
+                console.log("courses", response.data);
                 setCourses(response.data);
             } catch (err) {
                 console.log(err);
             }
         }
         fetchCourses();
-    }, [user.id])
+    }, [user.id]);
+
+    // Fetch timetable for the student
+    useEffect(() => {
+        const fetchTimetable = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get(`http://localhost:7001/api/timeTable/getTimetableByStudent/${user.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+
+                console.log("timetable", response.data);
+                setTimetable(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetchTimetable();
+    }, [user.id]);
 
     return (
         <div className='main-container'>
@@ -60,15 +81,42 @@ function StudentDashboard() {
                         )}
                     </div>
                     <div className="student-details">
-    <p><FontAwesomeIcon icon={faUser} /> <strong>Name:</strong> {user.name}</p>
-    <p><FontAwesomeIcon icon={faEnvelope} /> <strong>Email:</strong> {user.email}</p>
-    <p><FontAwesomeIcon icon={faBook} /> <strong>Enrolled Courses</strong></p>
-    <ul>
-        {courses.map((course, index) => (
-            <li key={index}>{course.name}</li>
-        ))}
-    </ul>
-</div>
+                        <p><FontAwesomeIcon icon={faUser} /> <strong>Name:</strong> {user.name}</p>
+                        <p><FontAwesomeIcon icon={faEnvelope} /> <strong>Email:</strong> {user.email}</p>
+                        <p><FontAwesomeIcon icon={faBook} /> <strong>Enrolled Courses</strong></p>
+                        <ul>
+                            {courses.map((course, index) => (
+                                <li key={index}>{course.name}</li>
+                            ))}
+                        </ul>
+
+                        {/* Display Timetable */}
+                        <p><FontAwesomeIcon icon={faCalendar} /> <strong>Your Timetable</strong></p>
+                        {timetable.length > 0 ? (
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Course</th>
+                                        <th>Day</th>
+                                        <th>Time</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {timetable.map((entry, index) => (
+                                        <tr key={index}>
+                                            <td>{entry.course.name}</td>
+                                            <td>{entry.day}</td>
+                                            <td>{entry.time}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+
+                            </table>
+                        ) : (
+                            <p>No timetable available.</p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

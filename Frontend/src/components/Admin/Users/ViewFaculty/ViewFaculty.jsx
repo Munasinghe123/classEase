@@ -118,7 +118,7 @@ function ViewFaculty() {
                                         </td>
                                         <td>{fclty.email}</td>
                                         <td>
-                                            <Link to={`/updateUser${fclty._id}`}>
+                                            <Link to={`/updateUser/${fclty._id}`}>
                                                 <button className='update-btn'>Update</button>
                                             </Link>
 

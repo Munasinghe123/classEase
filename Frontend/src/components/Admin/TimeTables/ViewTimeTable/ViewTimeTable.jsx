@@ -53,6 +53,7 @@ function ViewTimeTable() {
                     <tr>
                         <th>Course Name</th>
                         <th>Time</th>
+                        <th>Day</th>
                         <th>Location</th>
                         <th>Assigned Faculty Member</th>
                         <th>Operations</th>
@@ -61,15 +62,15 @@ function ViewTimeTable() {
                 <tbody>
                     {timeTable.map((data, index) => (
                         <tr key={index}>
-                            <td>{data.course.name}</td>
-                            <td>{data.time}</td>
-                            <td>{data.location?.name}</td>
-                            <td>{data.assignedFacultyMember?.name}</td>
+                            <td>{data.course?.name || 'N/A'}</td>
+                            <td>{data.time || 'N/A'}</td>
+                            <td>{data.day || 'N/A'}</td>
+                            <td>{data.location?.name || 'N/A'}</td>
+                            <td>{data.assignedFacultyMember?.name || 'N/A'}</td>
                             <td>
                                 <Link to={`/UpdateTimeTable/${data._id}`}>
                                     <button className='timeTableUpdate-btn'>Update</button>
                                 </Link>
-
                                 <button
                                     onClick={() => deleteTimeTable(data._id)}
                                     className='timeTableDelete-btn'>Delete</button>
@@ -77,6 +78,7 @@ function ViewTimeTable() {
                         </tr>
                     ))}
                 </tbody>
+
             </table>
         </div >
     );

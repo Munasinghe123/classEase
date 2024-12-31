@@ -10,9 +10,11 @@ function UpdateTimeTable() {
 
     const [users, setUsers] = useState([]);
     const [rooms, setRooms] = useState([]);
+    const [days, setDays] = useState(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]); // Added days array
 
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
+    const [day, setDay] = useState(""); // State to hold selected day
 
     const [location, setLocation] = useState(null);
     const [member, setMember] = useState(null);
@@ -28,10 +30,11 @@ function UpdateTimeTable() {
                 });
 
                 console.log("Relevant timetable details", response.data);
-                setName(response.data.course);
+                setName(response.data.course.name);
                 setLocation(response.data.location);
                 setTime(response.data.time);
                 setMember(response.data.assignedFacultyMember);
+                setDay(response.data.day); // Set the initial day
             } catch (err) {
                 console.log(err);
             }
@@ -86,8 +89,8 @@ function UpdateTimeTable() {
         try {
             const token = localStorage.getItem("token");
             const formData = {
-                course: name,
                 time,
+                day, // Include day in the payload
                 location: location?._id, // Send only the location _id
                 assignedFacultyMember: member?._id // Send only the member _id
             };
@@ -120,16 +123,32 @@ function UpdateTimeTable() {
                     type='text'
                     name='CourseName'
                     value={name}
+                    disabled
                     onChange={(e) => setName(e.target.value)}
                 />
 
                 <label htmlFor='time'>Time</label>
                 <input
-                    type='text'
+                    type='time'
                     name='time'
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
                 />
+
+                <label htmlFor='day'>Day</label>
+                <select
+                    name='day'
+                    value={day}
+                    onChange={(e) => setDay(e.target.value)}
+                >
+                    <option value="">Select a day</option>
+                    {days.map((d, index) => (
+                        <option key={index} value={d} disabled={d === day}>
+                            {d} {d === day ? "(Current)" : ""}
+                        </option>
+                    ))}
+                </select>
+
 
                 <label htmlFor='location'>Location</label>
                 <select
