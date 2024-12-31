@@ -49,7 +49,7 @@ const App = () => {
                 <Route path="/viewUsers" element={<ViewUsers />} />
                 <Route path="/viewStudents" element={<ViewStudents />} />
                 <Route path="/viewFaculty" element={<ViewFaculty />} />
-                <Route path="/update/:id" element={<Update />} />
+                <Route path="/updateUser/:id" element={<Update />} />
                 <Route path="/addCourses" element={<AddCourses />} />
                 <Route path="/viewCourses" element={<ViewCourses />} />
                 <Route path="/updateCourses/:id" element={<UpdateCourses />} />
@@ -57,7 +57,7 @@ const App = () => {
                 <Route path="/AddTimeTable" element={<AddTimeTable />} />
                 <Route path="/ViewTimeTable" element={<ViewTimeTable />} />
                 <Route path="/UpdateTimeTable/:id" element={<UpdateTimeTable />} />
-                <Route path="/ViewRooms" element={<ViewRooms/>} />
+                <Route path="/ViewRooms" element={<ViewRooms />} />
                 <Route path="/CreateRooms" element={<CreateRooms />} />
                 <Route path="/UpdateRooms" element={<UpdateRooms />} />
               </>

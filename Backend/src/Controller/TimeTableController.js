@@ -1,10 +1,11 @@
 const TimeTable = require('../Model/TimeTableModel');
 const User = require('../Model/UserModel');
 const Room = require('../Model/RoomModel');
+const Course = require('../Model/CourseModel');
 
 const createTimeTable = async (req, res) => {
     try {
-        const { course, time, location, assignedFacultyMember } = req.body;
+        const { course, time, day, location, assignedFacultyMember } = req.body;
 
         // Check if the assigned faculty member exists and has the 'faculty' role
         const faculty = await User.findOne({ _id: assignedFacultyMember, role: 'faculty' });
@@ -41,6 +42,7 @@ const createTimeTable = async (req, res) => {
         const timeTable = new TimeTable({
             course,
             time,
+            day,
             location,
             assignedFacultyMember,
         });
@@ -71,7 +73,8 @@ const getTimeTableById = async (req, res) => {
         const id = req.params.id;
 
         const timeTable = await TimeTable.findById(id).populate("assignedFacultyMember", "name")
-            .populate("location", "name");
+            .populate("location", "name")
+            .populate("course", "name");
 
         if (!timeTable) {
             return res.status(404).json({ message: "no such timetable" });
@@ -87,7 +90,7 @@ const getTimeTableById = async (req, res) => {
 const updateTimeTable = async (req, res) => {
     try {
         const id = req.params.id;
-        const { course, time, location, assignedFacultyMember } = req.body;
+        const { course, time, day, location, assignedFacultyMember } = req.body;
 
         const faculty = await User.findOne({ _id: assignedFacultyMember, role: 'faculty' });
         if (!faculty) {
@@ -101,7 +104,7 @@ const updateTimeTable = async (req, res) => {
             return res.status(404).json({ message: 'no such room' });
         }
 
-        const timeTable = await TimeTable.findByIdAndUpdate(id, { course, time, location, assignedFacultyMember }, { new: true });
+        const timeTable = await TimeTable.findByIdAndUpdate(id, { course, time, day, location, assignedFacultyMember }, { new: true });
 
         res.status(200).json(timeTable);
 
@@ -130,8 +133,35 @@ const deleteTimeTable = async (req, res) => {
         res.status(500).json({ message: "An error occurred while deleting the timetable" });
     }
 };
+const getTimeTableByStudent = async (req, res) => {
+    try {
+        const studentId = req.params.id;
+
+        // Find courses that the student is enrolled in
+        const courses = await Course.find({ enrolledStudent: studentId });
+
+        if (!courses || courses.length === 0) {
+            return res.status(404).json({ message: "No courses found for this student." });
+        }
+
+        // Get the timetables for these courses
+        const timeTables = await TimeTable.find({ course: { $in: courses.map(course => course._id) } })
+            .populate("assignedFacultyMember", "name")
+            .populate("location", "name")
+            .populate("course", "name");
+
+        if (timeTables.length === 0) {
+            return res.status(404).json({ message: "No timetable entries found for this student." });
+        }
+
+        res.status(200).json(timeTables);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "An error occurred while fetching the timetable." });
+    }
+};
 
 
 module.exports = {
-    createTimeTable, getTimeTable, getTimeTableById, updateTimeTable, deleteTimeTable
+    createTimeTable, getTimeTable, getTimeTableById, updateTimeTable, deleteTimeTable, getTimeTableByStudent
 }

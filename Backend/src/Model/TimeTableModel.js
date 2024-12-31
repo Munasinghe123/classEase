@@ -8,12 +8,18 @@ const TimeTableSchema = new mongoose.Schema({
     time: {
         type: String
     },
+    day: {
+        type: String
+    },
     location: {
         type: mongoose.Schema.Types.ObjectId, ref: "Rooms"
     },
     assignedFacultyMember: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"
-    }
+    },
+    enrolledStudent: [{
+        type: mongoose.Schema.Types.ObjectId, ref: "User"
+    }]
 }, {
     timeStamps: true
 })

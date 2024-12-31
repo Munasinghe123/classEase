@@ -120,7 +120,7 @@ function ViewStudents() {
 
                                         <td>{std.email}</td>
                                         <td>
-                                            <Link to={`/update/${std._id}`}>
+                                            <Link to={`/updateUser/${std._id}`}>
                                                 <button className='update-btn'>Update</button>
                                             </Link>
                                             <button className='delete-btn'
