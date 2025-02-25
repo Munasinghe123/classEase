@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import './Home.css';
+import image1 from '../../images/image.jpeg';
 
 const Home = () => {
     const { user } = useContext(AuthContext);
@@ -18,12 +19,12 @@ const Home = () => {
 
     return (
         <div className="home-container">
-           
-            <section className="hero-section">
-               
+            {/* Hero Section */}
+            <section className="hero-section" style={{ backgroundImage: `url(${image1})` }}>
+                <div className="overlay">
                     <h1>Welcome to ClassEase</h1>
                     <p>Find all your university details here</p>
-                   
+                </div>
             </section>
 
             {/* Features Section */}
@@ -57,8 +58,6 @@ const Home = () => {
                     <span>- Michael, Instructor</span>
                 </div>
             </section>
-
-          
         </div>
     );
 };
